@@ -6,17 +6,46 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		FFBBB3992F45D37600B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seihai.app; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		FFBBB39D2F45D37600B837D3 /* SeihaiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB39C2F45D37600B837D3 /* SeihaiApp.swift */; };
+		FFBBB39F2F45D37600B837D3 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB39E2F45D37600B837D3 /* RootView.swift */; };
+		FFBBB3B52F45D7F500B837D3 /* SeihaiTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */; };
+		FFBBB3B72F45D83C00B837D3 /* Thought.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3B62F45D82B00B837D3 /* Thought.swift */; };
+		FFBBB3BD2F472DE200B837D3 /* SeihaiSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */; };
+		FFBBB3BE2F472DE200B837D3 /* SeihaiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */; };
+		FFBBB3BF2F472DE200B837D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */; };
+		FFBBB3C42F472E8E00B837D3 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3C32F472E8300B837D3 /* InputView.swift */; };
+		FFBBB3C72F47308400B837D3 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3C62F47308000B837D3 /* Haptics.swift */; };
+		FFBBB3C92F4730AC00B837D3 /* UndoToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3C82F4730A900B837D3 /* UndoToast.swift */; };
+		FFBBB3CB2F47310800B837D3 /* OrganizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3CA2F47310500B837D3 /* OrganizeView.swift */; };
+		FFBBB3CE2F47332400B837D3 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3CD2F47317400B837D3 /* UserDefaultsStore.swift */; };
+		FFBBB3CF2F47332B00B837D3 /* SeihaiSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3CC2F47315700B837D3 /* SeihaiSnapshot.swift */; };
+		FFBBB3D12F4733DE00B837D3 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D02F4733DC00B837D3 /* ActionCard.swift */; };
+		FFBBB3D32F47340500B837D3 /* ActionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D22F47340100B837D3 /* ActionGenerator.swift */; };
+		FFBBB3D52F47348300B837D3 /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D42F47348000B837D3 /* ActionView.swift */; };
+		FFBBB3D72F4734A600B837D3 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		FFBBB39B2F45D37600B837D3 /* Seihai */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Seihai;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		FFBBB39C2F45D37600B837D3 /* SeihaiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiApp.swift; sourceTree = "<group>"; };
+		FFBBB39E2F45D37600B837D3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiTheme.swift; sourceTree = "<group>"; };
+		FFBBB3B62F45D82B00B837D3 /* Thought.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thought.swift; sourceTree = "<group>"; };
+		FFBBB3B82F472DE200B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seihai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiSegment.swift; sourceTree = "<group>"; };
+		FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiViewModel.swift; sourceTree = "<group>"; };
+		FFBBB3C32F472E8300B837D3 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		FFBBB3C62F47308000B837D3 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		FFBBB3C82F4730A900B837D3 /* UndoToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoToast.swift; sourceTree = "<group>"; };
+		FFBBB3CA2F47310500B837D3 /* OrganizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeView.swift; sourceTree = "<group>"; };
+		FFBBB3CC2F47315700B837D3 /* SeihaiSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiSnapshot.swift; sourceTree = "<group>"; };
+		FFBBB3CD2F47317400B837D3 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
+		FFBBB3D02F4733DC00B837D3 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		FFBBB3D22F47340100B837D3 /* ActionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionGenerator.swift; sourceTree = "<group>"; };
+		FFBBB3D42F47348000B837D3 /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
+		FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FFBBB3962F45D37600B837D3 /* Frameworks */ = {
@@ -32,17 +61,89 @@
 		FFBBB3902F45D37600B837D3 = {
 			isa = PBXGroup;
 			children = (
-				FFBBB39B2F45D37600B837D3 /* Seihai */,
-				FFBBB39A2F45D37600B837D3 /* Products */,
+				FFBBB3C52F472F7200B837D3 /* Data */,
+				FFBBB3A92F45D41400B837D3 /* DesignSystem */,
+				FFBBB3A82F45D3DD00B837D3 /* App */,
+				FFBBB3A72F45D39900B837D3 /* Domain */,
+				FFBBB39A2F45D37600B837D3 /* Data */,
+				FFBBB3C02F472E1900B837D3 /* Presentation */,
 			);
 			sourceTree = "<group>";
 		};
-		FFBBB39A2F45D37600B837D3 /* Products */ = {
+		FFBBB39A2F45D37600B837D3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				FFBBB3992F45D37600B837D3 /* Seihai.app */,
+				FFBBB3B82F472DE200B837D3 /* Seihai.app */,
 			);
-			name = Products;
+			name = Data;
+			sourceTree = "<group>";
+		};
+		FFBBB3A72F45D39900B837D3 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3D22F47340100B837D3 /* ActionGenerator.swift */,
+				FFBBB3D02F4733DC00B837D3 /* ActionCard.swift */,
+				FFBBB3B62F45D82B00B837D3 /* Thought.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		FFBBB3A82F45D3DD00B837D3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB39E2F45D37600B837D3 /* RootView.swift */,
+				FFBBB39C2F45D37600B837D3 /* SeihaiApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FFBBB3A92F45D41400B837D3 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3C62F47308000B837D3 /* Haptics.swift */,
+				FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		FFBBB3C02F472E1900B837D3 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3C12F472E3500B837D3 /* Components */,
+				FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */,
+				FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */,
+				FFBBB3C22F472E7100B837D3 /* Views */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		FFBBB3C12F472E3500B837D3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */,
+				FFBBB3C82F4730A900B837D3 /* UndoToast.swift */,
+				FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		FFBBB3C22F472E7100B837D3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3D42F47348000B837D3 /* ActionView.swift */,
+				FFBBB3CA2F47310500B837D3 /* OrganizeView.swift */,
+				FFBBB3C32F472E8300B837D3 /* InputView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FFBBB3C52F472F7200B837D3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FFBBB3CD2F47317400B837D3 /* UserDefaultsStore.swift */,
+				FFBBB3CC2F47315700B837D3 /* SeihaiSnapshot.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -60,14 +161,11 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				FFBBB39B2F45D37600B837D3 /* Seihai */,
-			);
 			name = Seihai;
 			packageProductDependencies = (
 			);
 			productName = Seihai;
-			productReference = FFBBB3992F45D37600B837D3 /* Seihai.app */;
+			productReference = FFBBB3B82F472DE200B837D3 /* Seihai.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -95,7 +193,7 @@
 			mainGroup = FFBBB3902F45D37600B837D3;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = FFBBB39A2F45D37600B837D3 /* Products */;
+			productRefGroup = FFBBB39A2F45D37600B837D3 /* Data */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -109,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBBB3BF2F472DE200B837D3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +218,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBBB3D52F47348300B837D3 /* ActionView.swift in Sources */,
+				FFBBB3C92F4730AC00B837D3 /* UndoToast.swift in Sources */,
+				FFBBB3B52F45D7F500B837D3 /* SeihaiTheme.swift in Sources */,
+				FFBBB3C42F472E8E00B837D3 /* InputView.swift in Sources */,
+				FFBBB3CE2F47332400B837D3 /* UserDefaultsStore.swift in Sources */,
+				FFBBB3BD2F472DE200B837D3 /* SeihaiSegment.swift in Sources */,
+				FFBBB3D32F47340500B837D3 /* ActionGenerator.swift in Sources */,
+				FFBBB3D72F4734A600B837D3 /* ShareSheet.swift in Sources */,
+				FFBBB3BE2F472DE200B837D3 /* SeihaiViewModel.swift in Sources */,
+				FFBBB3CF2F47332B00B837D3 /* SeihaiSnapshot.swift in Sources */,
+				FFBBB3C72F47308400B837D3 /* Haptics.swift in Sources */,
+				FFBBB39F2F45D37600B837D3 /* RootView.swift in Sources */,
+				FFBBB3D12F4733DE00B837D3 /* ActionCard.swift in Sources */,
+				FFBBB39D2F45D37600B837D3 /* SeihaiApp.swift in Sources */,
+				FFBBB3B72F45D83C00B837D3 /* Thought.swift in Sources */,
+				FFBBB3CB2F47310800B837D3 /* OrganizeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
