@@ -31,7 +31,7 @@
 		FFBBB39E2F45D37600B837D3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiTheme.swift; sourceTree = "<group>"; };
 		FFBBB3B62F45D82B00B837D3 /* Thought.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thought.swift; sourceTree = "<group>"; };
-		FFBBB3B82F472DE200B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seihai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBBB3B82F472DE200B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Seihai.app; path = "/Users/skurosawa/Developer/iOS/Seihai/build/Debug-iphoneos/Seihai.app"; sourceTree = "<absolute>"; };
 		FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiSegment.swift; sourceTree = "<group>"; };
 		FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiViewModel.swift; sourceTree = "<group>"; };
@@ -67,13 +67,13 @@
 				FFBBB3A72F45D39900B837D3 /* Domain */,
 				FFBBB39A2F45D37600B837D3 /* Data */,
 				FFBBB3C02F472E1900B837D3 /* Presentation */,
+				FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
 		FFBBB39A2F45D37600B837D3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				FFBBB3B82F472DE200B837D3 /* Seihai.app */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -110,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				FFBBB3C12F472E3500B837D3 /* Components */,
-				FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */,
 				FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */,
 				FFBBB3C22F472E7100B837D3 /* Views */,
 			);

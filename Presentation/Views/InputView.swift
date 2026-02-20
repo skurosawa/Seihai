@@ -6,14 +6,20 @@ struct InputView: View {
     @FocusState private var isFocused: Bool
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
 
-            // MARK: - Input Field
+            // Title
+            HStack {
+                Text("入力")
+                    .font(.system(size: 20, weight: .bold))
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
 
-            TextField("思考を入力…（Enterで追加）", text: $vm.draftText, axis: .vertical)
-                .textInputAutocapitalization(.sentences)
-                .disableAutocorrection(false)
-                .lineLimit(1...6)
+            // Draft only (auto-height, max 4 lines)
+            TextField("思考を入力…", text: $vm.draftText, axis: .vertical)
+                .lineLimit(1...4)
                 .submitLabel(.done)
                 .padding(14)
                 .background(.white.opacity(0.8))
@@ -24,19 +30,30 @@ struct InputView: View {
                 )
                 .focused($isFocused)
                 .onSubmit {
-                    vm.addThoughtFromDraft()
+                    vm.addThoughtsFromDraftAndGoArrange()
                     isFocused = true
                 }
                 .onChange(of: vm.draftText) { _, _ in
                     vm.scheduleSave()
                 }
+                .padding(.horizontal, 16)
 
-            // MARK: - Action Buttons
+            // Optional helper (minimal)
+            Text("Enterで追加。整理で並べ替え。")
+                .font(.system(size: 13))
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
 
-            HStack(spacing: 12) {
+            Spacer()
+        }
+        .safeAreaInset(edge: .bottom) {
+            // Sticky toolbar
+            HStack(spacing: 10) {
 
                 Button("クリア") {
                     vm.draftText = ""
+                    vm.scheduleSave()
                     isFocused = true
                 }
                 .buttonStyle(.bordered)
@@ -45,31 +62,30 @@ struct InputView: View {
                     vm.resetAll()
                     isFocused = true
                 }
-                .buttonStyle(.borderedProminent)
-            }
+                .buttonStyle(.bordered)
+                .tint(.red)
 
-            // MARK: - Thought Preview List
+                Spacer()
 
-            if vm.thoughts.isEmpty {
-                Spacer()
-                Text("まだ思考はありません")
-                    .font(.system(size: 14))
-                    .foregroundStyle(.secondary)
-                Spacer()
-            } else {
-                List {
-                    ForEach(vm.thoughts) { thought in
-                        Text(thought.text)
-                            .padding(.vertical, 6)
-                    }
+                Button("追加") {
+                    vm.addThoughtsFromDraftAndGoArrange()
+                    isFocused = true
                 }
-                .scrollContentBackground(.hidden)
+                .buttonStyle(.borderedProminent)
+                .disabled(vm.draftText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(.ultraThinMaterial)
+            .overlay(
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundStyle(SeihaiTheme.border)
+                , alignment: .top
+            )
         }
-        .padding(16)
         .onAppear {
             isFocused = true
         }
     }
 }
-

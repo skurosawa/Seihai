@@ -11,7 +11,7 @@ final class SeihaiViewModel {
     // MARK: - Input
     var draftText: String = ""
 
-    // MARK: - Thoughts
+    // MARK: - Thoughts (items)
     var thoughts: [Thought] = []
 
     // MARK: - Actions
@@ -35,7 +35,6 @@ final class SeihaiViewModel {
     }
 
     // MARK: - Page Events
-
     /// RootView で page が変わったら呼ぶ
     func onPageChanged() {
         if page == 2 {
@@ -46,35 +45,55 @@ final class SeihaiViewModel {
         }
     }
 
-    // MARK: - Add
-
-    func addThoughtFromDraft() {
+    // MARK: - Input Add (PWA互換)
+    /// - draftをtrim
+    /// - 改行で分割して空行除外
+    /// - thoughtsへ末尾追加
+    /// - draftを空にする
+    /// - 整理へ自動遷移（page=1）
+    func addThoughtsFromDraftAndGoArrange() {
         let trimmed = draftText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        thoughts.insert(Thought(text: trimmed), at: 0)
+        let lines = trimmed
+            .split(whereSeparator: \.isNewline)
+            .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+
+        guard !lines.isEmpty else { return }
+
+        for line in lines {
+            thoughts.append(Thought(text: line))
+        }
+
         draftText = ""
 
-        // 思考が変わったので、行動は“古い”扱い（次の画面で再生成させる）
+        // 思考が変わったので actions は無効化
         actions = []
 
         Haptics.soft()
         scheduleSave()
+
+        // 整理へ自動遷移（index=1）
+        withAnimation(.easeOut(duration: 0.18)) {
+            page = 1
+        }
     }
 
     // MARK: - Reset
-
     func resetAll() {
         thoughts.removeAll()
         actions.removeAll()
         draftText = ""
+
+        lastDeleted = nil
+        showUndoToast = false
 
         Haptics.light()
         scheduleSave()
     }
 
     // MARK: - Delete
-
     func deleteThought(at index: Int) {
         guard thoughts.indices.contains(index) else { return }
 
@@ -82,7 +101,7 @@ final class SeihaiViewModel {
         lastDeleted = (removed, index)
         showUndoToast = true
 
-        // 思考が変わったので actions はクリア
+        // 思考が変わったので actions は無効化
         actions = []
 
         Haptics.light()
@@ -98,7 +117,6 @@ final class SeihaiViewModel {
     }
 
     // MARK: - Undo
-
     func undoDelete() {
         guard let last = lastDeleted else { return }
 
@@ -108,7 +126,7 @@ final class SeihaiViewModel {
         lastDeleted = nil
         showUndoToast = false
 
-        // 思考が変わったので actions はクリア
+        // 思考が変わったので actions は無効化
         actions = []
 
         Haptics.soft()
@@ -116,11 +134,10 @@ final class SeihaiViewModel {
     }
 
     // MARK: - Move
-
     func moveThought(from source: IndexSet, to destination: Int) {
         thoughts.move(fromOffsets: source, toOffset: destination)
 
-        // 思考順が変わったので actions はクリア
+        // 思考順が変わったので actions は無効化
         actions = []
 
         Haptics.soft()
@@ -128,7 +145,6 @@ final class SeihaiViewModel {
     }
 
     // MARK: - Actions
-
     func regenerateActions() {
         actions = ActionGenerator.generate(from: thoughts)
         Haptics.soft()
@@ -136,7 +152,6 @@ final class SeihaiViewModel {
     }
 
     // MARK: - Auto Save (Debounce)
-
     func scheduleSave() {
         saveTask?.cancel()
 
@@ -148,6 +163,7 @@ final class SeihaiViewModel {
                 thoughts: thoughts,
                 actions: actions
             )
+
             store.save(snapshot)
         }
     }
