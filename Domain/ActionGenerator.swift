@@ -1,34 +1,15 @@
 import Foundation
 
 enum ActionGenerator {
-
-    static func generate(from thoughts: [Thought]) -> [ActionCard] {
+    static func generate(from thoughts: [Thought]) -> String {
         let texts = thoughts
             .map { $0.text.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
 
-        guard !texts.isEmpty else {
-            return [
-                ActionCard(title: "まず1つだけ", body: "思考を1つ入力してみよう。短くてOK。")
-            ]
-        }
+        guard !texts.isEmpty else { return "" }
 
-        // 1) 今日やる1つ（先頭を採用）
-        let primary = texts.first!
-
-        // 2) 5分タスク（短いものを優先）
-        let quick = texts
-            .sorted { $0.count < $1.count }
-            .first ?? primary
-
-        // 3) 捨てる/保留（最後を採用）
-        let later = texts.last!
-
-        return [
-            ActionCard(title: "今日やる1つ", body: primary),
-            ActionCard(title: "5分で着手", body: quick),
-            ActionCard(title: "保留 or 捨てる", body: later)
-        ]
+        // Web版準拠の「次の一手」：まずは最上段（=整理後の先頭）を採用
+        // ※将来ロジックを賢くしても、返すのは常に1本の文字列
+        return texts.first ?? ""
     }
 }
-

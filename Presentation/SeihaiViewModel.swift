@@ -14,8 +14,8 @@ final class SeihaiViewModel {
     // MARK: - Thoughts (items)
     var thoughts: [Thought] = []
 
-    // MARK: - Actions
-    var actions: [ActionCard] = []
+    // MARK: - Action (Web版準拠：1本)
+    var actionText: String = ""
 
     // MARK: - Undo
     private(set) var lastDeleted: (thought: Thought, index: Int)?
@@ -30,27 +30,19 @@ final class SeihaiViewModel {
         if let snapshot = store.load() {
             draftText = snapshot.draftText
             thoughts = snapshot.thoughts
-            actions = snapshot.actions
+            actionText = snapshot.actionText
         }
     }
 
     // MARK: - Page Events
-    /// RootView で page が変わったら呼ぶ
     func onPageChanged() {
         if page == 2 {
-            // 行動画面に来たタイミングで、空なら生成
-            if actions.isEmpty {
-                regenerateActions()
-            }
+            // 行動画面に来たら、必要なら生成
+            regenerateActionIfNeeded()
         }
     }
 
     // MARK: - Input Add (PWA互換)
-    /// - draftをtrim
-    /// - 改行で分割して空行除外
-    /// - thoughtsへ末尾追加
-    /// - draftを空にする
-    /// - 整理へ自動遷移（page=1）
     func addThoughtsFromDraftAndGoArrange() {
         let trimmed = draftText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
@@ -62,19 +54,20 @@ final class SeihaiViewModel {
 
         guard !lines.isEmpty else { return }
 
+        // 末尾追加（PWA互換）
         for line in lines {
             thoughts.append(Thought(text: line))
         }
 
         draftText = ""
 
-        // 思考が変わったので actions は無効化
-        actions = []
+        // 思考が変わったので action は無効化
+        actionText = ""
 
         Haptics.soft()
         scheduleSave()
 
-        // 整理へ自動遷移（index=1）
+        // 整理へ自動遷移
         withAnimation(.easeOut(duration: 0.18)) {
             page = 1
         }
@@ -83,8 +76,8 @@ final class SeihaiViewModel {
     // MARK: - Reset
     func resetAll() {
         thoughts.removeAll()
-        actions.removeAll()
         draftText = ""
+        actionText = ""
 
         lastDeleted = nil
         showUndoToast = false
@@ -93,7 +86,13 @@ final class SeihaiViewModel {
         scheduleSave()
     }
 
-    // MARK: - Delete
+    // MARK: - Delete (ID入口)
+    func deleteThought(id: UUID) {
+        guard let index = thoughts.firstIndex(where: { $0.id == id }) else { return }
+        deleteThought(at: index)
+    }
+
+    // MARK: - Delete (Index)
     func deleteThought(at index: Int) {
         guard thoughts.indices.contains(index) else { return }
 
@@ -101,18 +100,15 @@ final class SeihaiViewModel {
         lastDeleted = (removed, index)
         showUndoToast = true
 
-        // 思考が変わったので actions は無効化
-        actions = []
+        // 思考が変わったので action は無効化
+        actionText = ""
 
         Haptics.light()
         scheduleSave()
 
-        // 3秒後にトースト自動非表示
         Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
-            if showUndoToast {
-                showUndoToast = false
-            }
+            try? await Task.sleep(nanoseconds: 3_800_000_000)
+            if showUndoToast { showUndoToast = false }
         }
     }
 
@@ -126,8 +122,8 @@ final class SeihaiViewModel {
         lastDeleted = nil
         showUndoToast = false
 
-        // 思考が変わったので actions は無効化
-        actions = []
+        // 思考が変わったので action は無効化
+        actionText = ""
 
         Haptics.soft()
         scheduleSave()
@@ -137,18 +133,29 @@ final class SeihaiViewModel {
     func moveThought(from source: IndexSet, to destination: Int) {
         thoughts.move(fromOffsets: source, toOffset: destination)
 
-        // 思考順が変わったので actions は無効化
-        actions = []
+        // 思考順が変わったので action は無効化
+        actionText = ""
 
         Haptics.soft()
         scheduleSave()
     }
 
-    // MARK: - Actions
-    func regenerateActions() {
-        actions = ActionGenerator.generate(from: thoughts)
-        Haptics.soft()
-        scheduleSave()
+    // MARK: - Action (1本化)
+    func regenerateActionIfNeeded() {
+        if thoughts.isEmpty {
+            if !actionText.isEmpty {
+                actionText = ""
+                scheduleSave()
+            }
+            return
+        }
+        if actionText.isEmpty {
+            actionText = ActionGenerator.generate(from: thoughts)
+            if !actionText.isEmpty {
+                Haptics.soft()
+            }
+            scheduleSave()
+        }
     }
 
     // MARK: - Auto Save (Debounce)
@@ -156,14 +163,13 @@ final class SeihaiViewModel {
         saveTask?.cancel()
 
         saveTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 400_000_000) // 0.4秒デバウンス
+            try? await Task.sleep(nanoseconds: 400_000_000)
 
             let snapshot = SeihaiSnapshot(
                 draftText: draftText,
                 thoughts: thoughts,
-                actions: actions
+                actionText: actionText
             )
-
             store.save(snapshot)
         }
     }

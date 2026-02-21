@@ -24,6 +24,7 @@
 		FFBBB3D32F47340500B837D3 /* ActionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D22F47340100B837D3 /* ActionGenerator.swift */; };
 		FFBBB3D52F47348300B837D3 /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D42F47348000B837D3 /* ActionView.swift */; };
 		FFBBB3D72F4734A600B837D3 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */; };
+		FFBBB3DA2F49EFAF00B837D3 /* SimpleToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +32,6 @@
 		FFBBB39E2F45D37600B837D3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiTheme.swift; sourceTree = "<group>"; };
 		FFBBB3B62F45D82B00B837D3 /* Thought.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thought.swift; sourceTree = "<group>"; };
-		FFBBB3B82F472DE200B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Seihai.app; path = "/Users/skurosawa/Developer/iOS/Seihai/build/Debug-iphoneos/Seihai.app"; sourceTree = "<absolute>"; };
 		FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiSegment.swift; sourceTree = "<group>"; };
 		FFBBB3BB2F472DE200B837D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFBBB3BC2F472DE200B837D3 /* SeihaiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiViewModel.swift; sourceTree = "<group>"; };
@@ -45,6 +45,8 @@
 		FFBBB3D22F47340100B837D3 /* ActionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionGenerator.swift; sourceTree = "<group>"; };
 		FFBBB3D42F47348000B837D3 /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
 		FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		FFBBB3D82F487FCF00B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seihai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		FFBBB39A2F45D37600B837D3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				FFBBB3D82F487FCF00B837D3 /* Seihai.app */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -119,6 +122,7 @@
 		FFBBB3C12F472E3500B837D3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */,
 				FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */,
 				FFBBB3C82F4730A900B837D3 /* UndoToast.swift */,
 				FFBBB3B92F472DE200B837D3 /* SeihaiSegment.swift */,
@@ -164,7 +168,7 @@
 			packageProductDependencies = (
 			);
 			productName = Seihai;
-			productReference = FFBBB3B82F472DE200B837D3 /* Seihai.app */;
+			productReference = FFBBB3D82F487FCF00B837D3 /* Seihai.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -232,6 +236,7 @@
 				FFBBB3D12F4733DE00B837D3 /* ActionCard.swift in Sources */,
 				FFBBB39D2F45D37600B837D3 /* SeihaiApp.swift in Sources */,
 				FFBBB3B72F45D83C00B837D3 /* Thought.swift in Sources */,
+				FFBBB3DA2F49EFAF00B837D3 /* SimpleToast.swift in Sources */,
 				FFBBB3CB2F47310800B837D3 /* OrganizeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,7 +385,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.makahiki.Seihai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skurosawa.Seihai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -412,7 +417,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.makahiki.Seihai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skurosawa.Seihai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
