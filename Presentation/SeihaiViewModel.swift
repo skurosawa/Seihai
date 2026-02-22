@@ -149,11 +149,16 @@ final class SeihaiViewModel {
             }
             return
         }
+
         if actionText.isEmpty {
-            actionText = ActionGenerator.generate(from: thoughts)
+            actionText = ActionGenerator.generate(
+                from: thoughts.map(\.text)
+            )
+
             if !actionText.isEmpty {
                 Haptics.soft()
             }
+
             scheduleSave()
         }
     }
