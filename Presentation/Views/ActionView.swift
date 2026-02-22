@@ -10,7 +10,6 @@ struct ActionView: View {
         !vm.actionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    // ✅ Web版準拠：Markdown固定の共有文字列
     private var shareMarkdown: String {
         makeShareMarkdown(action: vm.actionText, items: vm.thoughts)
     }
@@ -18,7 +17,6 @@ struct ActionView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 12) {
-                // 見出し（Large Titleではない）
                 HStack {
                     Text("行動")
                         .font(.system(size: 20, weight: .bold))
@@ -33,19 +31,19 @@ struct ActionView: View {
                     ScrollView {
                         VStack(spacing: 12) {
 
-                            // ① 行動カード（主役：弱い強調）
+                            // 主役カード
                             primaryCard(title: "次の一手") {
                                 Text(vm.actionText)
-                                    .font(.system(size: 17, weight: .regular)) // 太字にしすぎない
+                                    .font(.system(size: 17, weight: .regular))
                                     .foregroundStyle(.primary)
-                                    .lineSpacing(3) // 読みやすさだけ上げる
+                                    .lineSpacing(3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
 
-                            // ② 整理カード（itemsがある時だけ：少しだけ控えめ）
+                            // 整理カード
                             if !vm.thoughts.isEmpty {
-                                card(title: "整理", isSubtle: true) {
+                                card(title: "整理") {
                                     VStack(alignment: .leading, spacing: 6) {
                                         ForEach(vm.thoughts) { t in
                                             Text("• \(t.text)")
@@ -56,10 +54,10 @@ struct ActionView: View {
                                         }
                                     }
                                 }
-                                .opacity(0.92) // 主役を立てる（やりすぎない）
+                                .opacity(0.92)
                             }
 
-                            // ③ 共有ボタン（右寄せ、1つ）
+                            // 共有ボタン（純正寄せ）
                             HStack {
                                 Spacer()
                                 Button {
@@ -67,8 +65,10 @@ struct ActionView: View {
                                 } label: {
                                     Label("共有", systemImage: "square.and.arrow.up")
                                 }
-                                .buttonStyle(.borderedProminent)
-                                .disabled(shareMarkdown.isEmpty) // 念のため（空なら共有しない）
+                                .buttonStyle(.borderless)      // ← 変更
+                                .font(.footnote)               // ← 変更
+                                .tint(.accentColor)            // ← 変更
+                                .disabled(shareMarkdown.isEmpty)
                             }
                             .padding(.horizontal, 16)
                             .padding(.top, 2)
@@ -80,7 +80,6 @@ struct ActionView: View {
                 Spacer(minLength: 0)
             }
 
-            // 共有成功トースト
             if showSharedToast {
                 SimpleToast(message: "共有したにゃ")
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -89,7 +88,6 @@ struct ActionView: View {
         }
         .animation(.easeOut(duration: 0.18), value: showSharedToast)
         .sheet(isPresented: $showShare, onDismiss: {
-            // “成功”判定の厳密化は難しいので、閉じたらフィードバック
             Haptics.soft()
             showSharedToast = true
             Task { @MainActor in
@@ -101,10 +99,6 @@ struct ActionView: View {
         }
     }
 
-    // ✅ 共有フォーマット（厳守）
-    // - actionが存在する場合のみ「## 行動」＋1行空けてaction
-    // - itemsが存在する場合のみ「## 整理」＋1行空けて「- 」箇条書き
-    // - 空セクションは出力しない
     private func makeShareMarkdown(action: String, items: [Thought]) -> String {
         let a = action.trimmingCharacters(in: .whitespacesAndNewlines)
         let lines = items
@@ -149,33 +143,31 @@ struct ActionView: View {
         .padding(.top, 40)
     }
 
-    // 行動カード（主役だけ“弱い強調”）
     private func primaryCard<Content: View>(
         title: String,
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.system(size: 15, weight: .semibold)) // 少しだけ上げる
+                .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(.secondary)
 
             content()
         }
-        .padding(16) // ほんの少しだけ余白を増やす
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.ultraThinMaterial)
         .overlay(
             RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius)
-                .stroke(SeihaiTheme.border, lineWidth: 1.2) // ちょい強（でも薄青ボーダーの範囲）
+                .stroke(SeihaiTheme.border, lineWidth: 1.2)
         )
         .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius))
-        .shadow(radius: 2, y: 1) // 弱い影（色は指定しない）
+        .shadow(radius: 2, y: 1)
         .padding(.horizontal, 16)
     }
 
     private func card<Content: View>(
         title: String,
-        isSubtle: Bool = false,
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
