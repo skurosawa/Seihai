@@ -33,16 +33,17 @@ struct ActionView: View {
                     ScrollView {
                         VStack(spacing: 12) {
 
-                            // ① 行動カード（主役）
-                            card(title: "次の一手") {
+                            // ① 行動カード（主役：弱い強調）
+                            primaryCard(title: "次の一手") {
                                 Text(vm.actionText)
-                                    .font(.system(size: 17, weight: .semibold))
+                                    .font(.system(size: 17, weight: .regular)) // 太字にしすぎない
                                     .foregroundStyle(.primary)
+                                    .lineSpacing(3) // 読みやすさだけ上げる
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
 
-                            // ② 整理カード（itemsがある時だけ）
+                            // ② 整理カード（itemsがある時だけ：少しだけ控えめ）
                             if !vm.thoughts.isEmpty {
                                 card(title: "整理", isSubtle: true) {
                                     VStack(alignment: .leading, spacing: 6) {
@@ -55,6 +56,7 @@ struct ActionView: View {
                                         }
                                     }
                                 }
+                                .opacity(0.92) // 主役を立てる（やりすぎない）
                             }
 
                             // ③ 共有ボタン（右寄せ、1つ）
@@ -147,6 +149,30 @@ struct ActionView: View {
         .padding(.top, 40)
     }
 
+    // 行動カード（主役だけ“弱い強調”）
+    private func primaryCard<Content: View>(
+        title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.system(size: 15, weight: .semibold)) // 少しだけ上げる
+                .foregroundStyle(.secondary)
+
+            content()
+        }
+        .padding(16) // ほんの少しだけ余白を増やす
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius)
+                .stroke(SeihaiTheme.border, lineWidth: 1.2) // ちょい強（でも薄青ボーダーの範囲）
+        )
+        .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius))
+        .shadow(radius: 2, y: 1) // 弱い影（色は指定しない）
+        .padding(.horizontal, 16)
+    }
+
     private func card<Content: View>(
         title: String,
         isSubtle: Bool = false,
@@ -161,7 +187,7 @@ struct ActionView: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(isSubtle ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.ultraThinMaterial))
+        .background(.ultraThinMaterial)
         .overlay(
             RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius)
                 .stroke(SeihaiTheme.border, lineWidth: 1)
