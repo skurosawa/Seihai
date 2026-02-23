@@ -19,6 +19,8 @@ struct SeihaiSegment: View {
         .padding(.vertical, 8)
     }
 
+    // MARK: - Segment Button
+
     @ViewBuilder
     private func segmentButton(title: String, index: Int) -> some View {
         let isSelected = (selection == index)
@@ -36,19 +38,51 @@ struct SeihaiSegment: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.borderless)
-        .foregroundStyle(isSelected ? .primary : .secondary) // テキストはそのまま
+        .foregroundStyle(isSelected ? .primary : .secondary)
         .background(segmentBackground(isSelected: isSelected))
-        .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous))
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: SeihaiTheme.cornerRadius,
+                style: .continuous
+            )
+        )
     }
+
+    // MARK: - Background
 
     @ViewBuilder
     private func segmentBackground(isSelected: Bool) -> some View {
-        RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
-            .fill(isSelected ? Color.accentColor.opacity(0.18) : .clear)
-            .overlay {
-                RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
-                    .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
-                    .opacity(isSelected ? 1.0 : 0.5)
+        let r = SeihaiTheme.cornerRadius
+
+        if #available(iOS 26, *) {
+
+            // --- iOS 26+: 純正Liquid Glass + ほんのり青 ---
+            ZStack {
+                if isSelected {
+                    RoundedRectangle(cornerRadius: r, style: .continuous)
+                        .fill(Color.accentColor.opacity(0.06)) // ← 超薄青
+                }
+
+                RoundedRectangle(cornerRadius: r, style: .continuous)
+                    .fill(.clear)
+                    .glassEffect(.regular, in: .rect(cornerRadius: r))
             }
+            .overlay {
+                RoundedRectangle(cornerRadius: r, style: .continuous)
+                    .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
+            }
+            .opacity(isSelected ? 1.0 : 0.88)
+
+        } else {
+
+            // --- iOS 17–25: 従来安定版 ---
+            RoundedRectangle(cornerRadius: r, style: .continuous)
+                .fill(isSelected ? Color.accentColor.opacity(0.18) : .clear)
+                .overlay {
+                    RoundedRectangle(cornerRadius: r, style: .continuous)
+                        .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
+                        .opacity(isSelected ? 1.0 : 0.5)
+                }
+        }
     }
 }

@@ -46,12 +46,14 @@ struct RootView: View {
                         canGoPrev: viewModel.page > 0,
                         canGoNext: viewModel.page < 2,
                         goPrev: {
+                            Haptics.soft() // ← フリック時も振動
                             withAnimation(.easeOut(duration: 0.18)) {
                                 viewModel.page = max(viewModel.page - 1, 0)
                                 viewModel.onPageChanged()
                             }
                         },
                         goNext: {
+                            Haptics.soft() // ← フリック時も振動
                             withAnimation(.easeOut(duration: 0.18)) {
                                 viewModel.page = min(viewModel.page + 1, 2)
                                 viewModel.onPageChanged()
@@ -76,6 +78,8 @@ private struct EdgePagingOverlay: View {
     var body: some View {
         GeometryReader { geo in
             HStack(spacing: 0) {
+
+                // 左端：右スワイプで前へ
                 Color.clear
                     .frame(width: edgeWidth, height: geo.size.height)
                     .contentShape(Rectangle())
@@ -84,6 +88,7 @@ private struct EdgePagingOverlay: View {
 
                 Spacer(minLength: 0)
 
+                // 右端：左スワイプで次へ
                 Color.clear
                     .frame(width: edgeWidth, height: geo.size.height)
                     .contentShape(Rectangle())
@@ -101,8 +106,12 @@ private struct EdgePagingOverlay: View {
                 let isHorizontal = abs(dx) > abs(dy)
                 guard isHorizontal, abs(dx) > minSwipeDistance else { return }
 
-                if isLeftEdge, dx > 0 { goPrev() }
-                if !isLeftEdge, dx < 0 { goNext() }
+                if isLeftEdge, dx > 0 {
+                    goPrev()
+                }
+                if !isLeftEdge, dx < 0 {
+                    goNext()
+                }
             }
     }
 }
