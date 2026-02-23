@@ -65,9 +65,9 @@ struct ActionView: View {
                                 } label: {
                                     Label("共有", systemImage: "square.and.arrow.up")
                                 }
-                                .buttonStyle(.borderless)      // ← 変更
-                                .font(.footnote)               // ← 変更
-                                .tint(.accentColor)            // ← 変更
+                                .buttonStyle(.borderless)
+                                .font(.footnote)
+                                .tint(.accentColor)
                                 .disabled(shareMarkdown.isEmpty)
                             }
                             .padding(.horizontal, 16)
@@ -87,15 +87,18 @@ struct ActionView: View {
             }
         }
         .animation(.easeOut(duration: 0.18), value: showSharedToast)
-        .sheet(isPresented: $showShare, onDismiss: {
-            Haptics.soft()
-            showSharedToast = true
-            Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 1_800_000_000)
-                showSharedToast = false
+        .sheet(isPresented: $showShare) {
+            ShareSheet(activityItems: [shareMarkdown]) { completed in
+                guard completed else { return }
+
+                Haptics.soft()
+                showSharedToast = true
+
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 1_800_000_000)
+                    showSharedToast = false
+                }
             }
-        }) {
-            ShareSheet(activityItems: [shareMarkdown])
         }
     }
 
