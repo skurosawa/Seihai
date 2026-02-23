@@ -1,10 +1,29 @@
 import SwiftUI
 
 enum SeihaiTheme {
-    static let background = Color(red: 0.96, green: 0.98, blue: 1.00)
-    static let accent = Color(red: 0.30, green: 0.55, blue: 0.95)
-    static let border = Color(red: 0.82, green: 0.86, blue: 0.92)
+    // MARK: - Geometry (Tokens)
 
     static let cornerRadius: CGFloat = 16
     static let cardCornerRadius: CGFloat = 18
+
+    static let cardPaddingPrimary: CGFloat = 16
+    static let cardPaddingSecondary: CGFloat = 14
+
+    static let cardBorderWidthPrimary: CGFloat = 0.5
+    static let cardBorderWidthSecondary: CGFloat = 0.5
+
+    static let cardMinHeightPrimary: CGFloat = 120
+
+    // MARK: - Emphasis
+
+    /// 整理カードの控えめ度（仕様：0.90〜0.92）
+    static let secondaryCardOpacity: Double = 0.92
+
+    // MARK: - Shadow (Minimal)
+
+    static let shadowRadiusPrimary: CGFloat = 6
+    static let shadowYPrimary: CGFloat = 2
+
+    static let shadowRadiusSecondary: CGFloat = 4
+    static let shadowYSecondary: CGFloat = 1
 }

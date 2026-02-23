@@ -25,6 +25,8 @@
 		FFBBB3D52F47348300B837D3 /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D42F47348000B837D3 /* ActionView.swift */; };
 		FFBBB3D72F4734A600B837D3 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */; };
 		FFBBB3DA2F49EFAF00B837D3 /* SimpleToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */; };
+		FFBBB3DC2F4C807D00B837D3 /* SeihaiCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3DB2F4C807A00B837D3 /* SeihaiCardStyle.swift */; };
+		FFBBB3DE2F4C83C100B837D3 /* SeihaiToastContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBBB3DD2F4C83BD00B837D3 /* SeihaiToastContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		FFBBB3D82F487FCF00B837D3 /* Seihai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seihai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToast.swift; sourceTree = "<group>"; };
+		FFBBB3DB2F4C807A00B837D3 /* SeihaiCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiCardStyle.swift; sourceTree = "<group>"; };
+		FFBBB3DD2F4C83BD00B837D3 /* SeihaiToastContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeihaiToastContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 		FFBBB3A92F45D41400B837D3 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				FFBBB3DB2F4C807A00B837D3 /* SeihaiCardStyle.swift */,
 				FFBBB3C62F47308000B837D3 /* Haptics.swift */,
 				FFBBB3AA2F45D63400B837D3 /* SeihaiTheme.swift */,
 			);
@@ -122,6 +127,7 @@
 		FFBBB3C12F472E3500B837D3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FFBBB3DD2F4C83BD00B837D3 /* SeihaiToastContainer.swift */,
 				FFBBB3D92F49EFAB00B837D3 /* SimpleToast.swift */,
 				FFBBB3D62F4734A300B837D3 /* ShareSheet.swift */,
 				FFBBB3C82F4730A900B837D3 /* UndoToast.swift */,
@@ -221,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBBB3DC2F4C807D00B837D3 /* SeihaiCardStyle.swift in Sources */,
 				FFBBB3D52F47348300B837D3 /* ActionView.swift in Sources */,
 				FFBBB3C92F4730AC00B837D3 /* UndoToast.swift in Sources */,
 				FFBBB3B52F45D7F500B837D3 /* SeihaiTheme.swift in Sources */,
@@ -230,6 +237,7 @@
 				FFBBB3D32F47340500B837D3 /* ActionGenerator.swift in Sources */,
 				FFBBB3D72F4734A600B837D3 /* ShareSheet.swift in Sources */,
 				FFBBB3BE2F472DE200B837D3 /* SeihaiViewModel.swift in Sources */,
+				FFBBB3DE2F4C83C100B837D3 /* SeihaiToastContainer.swift in Sources */,
 				FFBBB3CF2F47332B00B837D3 /* SeihaiSnapshot.swift in Sources */,
 				FFBBB3C72F47308400B837D3 /* Haptics.swift in Sources */,
 				FFBBB39F2F45D37600B837D3 /* RootView.swift in Sources */,

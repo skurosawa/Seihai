@@ -27,7 +27,7 @@ struct OrganizeView: View {
                 List {
                     ForEach(vm.thoughts) { thought in
                         ThoughtCardRow(text: thought.text)
-                            .contentShape(Rectangle()) // ← swipe判定の当たりを安定させる
+                            .contentShape(Rectangle()) // swipe判定の当たりを安定
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     vm.deleteThought(id: thought.id)
@@ -45,7 +45,7 @@ struct OrganizeView: View {
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
-                .environment(\.editMode, $editMode) // ← 通常はinactive
+                .environment(\.editMode, $editMode)
             }
 
             // Undo Toast
@@ -75,13 +75,6 @@ private struct ThoughtCardRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(14)
-        .background(.white.opacity(0.78))
-        .overlay(
-            RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius)
-                .stroke(SeihaiTheme.border, lineWidth: 1)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cardCornerRadius))
-        .shadow(radius: 1)
+        .seihaiCard(.secondary) // ← DesignSystemに統一
     }
 }

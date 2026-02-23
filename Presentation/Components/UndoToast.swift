@@ -5,25 +5,24 @@ struct UndoToast: View {
     let onUndo: () -> Void
 
     var body: some View {
-        HStack(spacing: 12) {
-            Text(message)
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(.primary)
+        SeihaiToastContainer {
+            HStack(spacing: 12) {
+                Text(message)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.primary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
 
-            Spacer()
-
-            Button("Undo") { onUndo() }
-                .font(.system(size: 14, weight: .bold))
+                Button("元に戻す") {
+                    onUndo()
+                    Haptics.soft()
+                }
+                .buttonStyle(.borderless)
+                .font(.footnote.weight(.semibold))
+                .tint(.accentColor)
+                .contentShape(Rectangle())
+            }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(SeihaiTheme.border, lineWidth: 1)
-        )
-        .padding(.horizontal, 16)
-        .padding(.bottom, 14)
+        .accessibilityElement(children: .combine)
     }
 }
