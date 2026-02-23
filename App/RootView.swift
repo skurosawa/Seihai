@@ -9,11 +9,25 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
-            SeihaiTheme.background.ignoresSafeArea()
+            // 固定RGBのテーマ背景は廃止（ダーク対応・ネイティブ感優先）
+            Color(uiColor: .systemBackground).ignoresSafeArea()
 
-            VStack(spacing: 12) {
-                SeihaiSegment(selection: $viewModel.page)
+            VStack(spacing: 0) {
 
+                // --- ナビ（うっすら青） ---
+                VStack {
+                    SeihaiSegment(selection: $viewModel.page)
+                }
+                .padding(.top, 8)
+                .padding(.bottom, 8)
+                .background(Color.accentColor.opacity(0.12))
+                .overlay(alignment: .bottom) {
+                    Rectangle()
+                        .frame(height: 0.5)
+                        .foregroundStyle(Color(uiColor: .separator))
+                }
+
+                // --- コンテンツ ---
                 ZStack {
                     // ---- 現在ページ（ページングは使わない）----
                     Group {
@@ -49,7 +63,6 @@ struct RootView: View {
                     )
                 }
             }
-            .padding(.top, 8)
         }
     }
 }

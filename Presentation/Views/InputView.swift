@@ -22,11 +22,11 @@ struct InputView: View {
                 .lineLimit(1...4)
                 .submitLabel(.done)
                 .padding(14)
-                .background(.white.opacity(0.8))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(SeihaiTheme.border, lineWidth: 1)
+                    RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
+                        .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
                 )
                 .focused($isFocused)
                 .onSubmit {
@@ -77,12 +77,11 @@ struct InputView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(.ultraThinMaterial)
-            .overlay(
+            .overlay(alignment: .top) {
                 Rectangle()
-                    .frame(height: 1)
-                    .foregroundStyle(SeihaiTheme.border)
-                , alignment: .top
-            )
+                    .frame(height: 0.5)
+                    .foregroundStyle(Color(uiColor: .separator))
+            }
         }
         .onAppear {
             isFocused = true
