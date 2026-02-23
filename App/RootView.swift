@@ -49,19 +49,23 @@ struct RootView: View {
                             Haptics.soft() // ← フリック時も振動
                             withAnimation(.easeOut(duration: 0.18)) {
                                 viewModel.page = max(viewModel.page - 1, 0)
-                                viewModel.onPageChanged()
+                                // onPageChanged() は onChange(of: page) 側で一元的に呼ぶ
                             }
                         },
                         goNext: {
                             Haptics.soft() // ← フリック時も振動
                             withAnimation(.easeOut(duration: 0.18)) {
                                 viewModel.page = min(viewModel.page + 1, 2)
-                                viewModel.onPageChanged()
+                                // onPageChanged() は onChange(of: page) 側で一元的に呼ぶ
                             }
                         }
                     )
                 }
             }
+        }
+        // ✅ ここが本命：page の変更を一箇所で監視（セグメントでもスワイプでも必ず発火）
+        .onChange(of: viewModel.page) { _, _ in
+            viewModel.onPageChanged()
         }
     }
 }

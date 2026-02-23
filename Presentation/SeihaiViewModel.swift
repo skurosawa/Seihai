@@ -20,6 +20,7 @@ final class SeihaiViewModel {
     // MARK: - Undo
     private(set) var lastDeleted: (thought: Thought, index: Int)?
     var showUndoToast: Bool = false
+    private var undoHideTask: Task<Void, Never>?   // ✅ 追加：世代管理
 
     // MARK: - Persistence
     private let store = UserDefaultsStore()
@@ -82,6 +83,10 @@ final class SeihaiViewModel {
         lastDeleted = nil
         showUndoToast = false
 
+        // ✅ 追加：Undoトーストの自動非表示タスクを止める
+        undoHideTask?.cancel()
+        undoHideTask = nil
+
         Haptics.light()
         scheduleSave()
     }
@@ -106,8 +111,11 @@ final class SeihaiViewModel {
         Haptics.light()
         scheduleSave()
 
-        Task { @MainActor in
+        // ✅ 修正：前回の自動非表示をキャンセルしてから作り直す（世代競合防止）
+        undoHideTask?.cancel()
+        undoHideTask = Task { @MainActor in
             try? await Task.sleep(nanoseconds: 3_800_000_000)
+            guard !Task.isCancelled else { return }
             if showUndoToast { showUndoToast = false }
         }
     }
@@ -121,6 +129,10 @@ final class SeihaiViewModel {
 
         lastDeleted = nil
         showUndoToast = false
+
+        // ✅ 追加：Undoしたら自動非表示タスクは不要なので止める
+        undoHideTask?.cancel()
+        undoHideTask = nil
 
         // 思考が変わったので action は無効化
         actionText = ""
