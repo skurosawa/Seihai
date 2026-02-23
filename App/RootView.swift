@@ -9,7 +9,6 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
-            // 固定RGBのテーマ背景は廃止（ダーク対応・ネイティブ感優先）
             Color(uiColor: .systemBackground).ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -29,7 +28,6 @@ struct RootView: View {
 
                 // --- コンテンツ ---
                 ZStack {
-                    // ---- 現在ページ（ページングは使わない）----
                     Group {
                         switch viewModel.page {
                         case 0:
@@ -42,7 +40,6 @@ struct RootView: View {
                     }
                     .transition(.opacity)
 
-                    // ---- ✅ 全ページ共通：エッジスワイプでページ遷移 ----
                     EdgePagingOverlay(
                         edgeWidth: edgeWidth,
                         minSwipeDistance: minSwipeDistance,
@@ -79,7 +76,6 @@ private struct EdgePagingOverlay: View {
     var body: some View {
         GeometryReader { geo in
             HStack(spacing: 0) {
-                // 左端：右スワイプで前へ
                 Color.clear
                     .frame(width: edgeWidth, height: geo.size.height)
                     .contentShape(Rectangle())
@@ -88,7 +84,6 @@ private struct EdgePagingOverlay: View {
 
                 Spacer(minLength: 0)
 
-                // 右端：左スワイプで次へ
                 Color.clear
                     .frame(width: edgeWidth, height: geo.size.height)
                     .contentShape(Rectangle())
@@ -106,12 +101,8 @@ private struct EdgePagingOverlay: View {
                 let isHorizontal = abs(dx) > abs(dy)
                 guard isHorizontal, abs(dx) > minSwipeDistance else { return }
 
-                if isLeftEdge, dx > 0 {
-                    goPrev()
-                }
-                if !isLeftEdge, dx < 0 {
-                    goNext()
-                }
+                if isLeftEdge, dx > 0 { goPrev() }
+                if !isLeftEdge, dx < 0 { goNext() }
             }
     }
 }

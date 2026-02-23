@@ -7,7 +7,6 @@ struct OrganizeView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                // 上部バー（編集トグル）
                 HStack {
                     Text("整理")
                         .font(.system(size: 20, weight: .bold))
@@ -27,7 +26,7 @@ struct OrganizeView: View {
                 List {
                     ForEach(vm.thoughts) { thought in
                         ThoughtCardRow(text: thought.text)
-                            .contentShape(Rectangle()) // swipe判定の当たりを安定
+                            .contentShape(Rectangle())
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     vm.deleteThought(id: thought.id)
@@ -48,9 +47,8 @@ struct OrganizeView: View {
                 .environment(\.editMode, $editMode)
             }
 
-            // Undo Toast
             if vm.showUndoToast {
-                UndoToast(message: "削除したにゃ") {
+                UndoToast(message: "消しちゃったにゃ") {
                     vm.undoDelete()
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -75,6 +73,6 @@ private struct ThoughtCardRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .seihaiCard(.secondary) // ← DesignSystemに統一
+        .seihaiCard(.secondary)
     }
 }

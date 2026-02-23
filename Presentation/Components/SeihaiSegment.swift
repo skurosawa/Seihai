@@ -44,7 +44,7 @@ struct SeihaiSegment: View {
     @ViewBuilder
     private func segmentBackground(isSelected: Bool) -> some View {
         RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
-            .fill(isSelected ? Color.accentColor.opacity(0.18) : .clear) // ← 選択中だけうっすら青
+            .fill(isSelected ? Color.accentColor.opacity(0.18) : .clear)
             .overlay {
                 RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
                     .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)

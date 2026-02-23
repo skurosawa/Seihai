@@ -5,6 +5,8 @@ struct InputView: View {
     @Bindable var vm: SeihaiViewModel
     @FocusState private var isFocused: Bool
 
+    @State private var showResetAlert: Bool = false
+
     var body: some View {
         VStack(spacing: 12) {
 
@@ -18,15 +20,23 @@ struct InputView: View {
             .padding(.top, 8)
 
             // Draft only (auto-height, max 4 lines)
-            TextField("思考を入力…", text: $vm.draftText, axis: .vertical)
+            TextField("思考を入力するにゃ…", text: $vm.draftText, axis: .vertical)
                 .lineLimit(1...4)
                 .submitLabel(.done)
                 .padding(14)
                 .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous))
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: SeihaiTheme.cornerRadius,
+                        style: .continuous
+                    )
+                )
                 .overlay(
-                    RoundedRectangle(cornerRadius: SeihaiTheme.cornerRadius, style: .continuous)
-                        .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
+                    RoundedRectangle(
+                        cornerRadius: SeihaiTheme.cornerRadius,
+                        style: .continuous
+                    )
+                    .strokeBorder(Color(uiColor: .separator), lineWidth: 0.5)
                 )
                 .focused($isFocused)
                 .onSubmit {
@@ -38,8 +48,8 @@ struct InputView: View {
                 }
                 .padding(.horizontal, 16)
 
-            // Optional helper (minimal)
-            Text("Enterで追加。整理で並べ替え。")
+            // Helper（メッセージのみ にゃ）
+            Text("Enterで追加するにゃ。整理で並べ替えるにゃ。")
                 .font(.system(size: 13))
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,7 +58,8 @@ struct InputView: View {
             Spacer()
         }
         .safeAreaInset(edge: .bottom) {
-            // Sticky toolbar
+
+            // Sticky toolbar（ボタンは通常表記）
             HStack(spacing: 10) {
 
                 Button("クリア") {
@@ -59,8 +70,7 @@ struct InputView: View {
                 .buttonStyle(.bordered)
 
                 Button("リセット") {
-                    vm.resetAll()
-                    isFocused = true
+                    showResetAlert = true
                 }
                 .buttonStyle(.bordered)
                 .tint(.red)
@@ -72,7 +82,11 @@ struct InputView: View {
                     isFocused = true
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(vm.draftText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled(
+                    vm.draftText
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
+                        .isEmpty
+                )
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
@@ -82,6 +96,16 @@ struct InputView: View {
                     .frame(height: 0.5)
                     .foregroundStyle(Color(uiColor: .separator))
             }
+        }
+        .alert("ほんとにリセットするにゃ？", isPresented: $showResetAlert) {
+            Button("キャンセル", role: .cancel) {}
+
+            Button("リセット", role: .destructive) {
+                vm.resetAll()
+                isFocused = true
+            }
+        } message: {
+            Text("入力中の文章と、保存された思考と行動がぜんぶ消えるにゃ。")
         }
         .onAppear {
             isFocused = true

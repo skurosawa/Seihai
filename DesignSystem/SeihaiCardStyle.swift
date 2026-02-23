@@ -1,10 +1,8 @@
 import SwiftUI
 
-// MARK: - Public API
-
 public enum SeihaiCardRole {
-    case primary   // 主役カード（次の一手）
-    case secondary // 控えめカード（整理カードなど）
+    case primary
+    case secondary
 }
 
 public struct SeihaiCardTokens {
@@ -16,7 +14,6 @@ public struct SeihaiCardTokens {
     public var shadowRadius: CGFloat
     public var shadowY: CGFloat
 
-    /// secondary の控えめ感（仕様：0.90〜0.92）
     public var secondaryOpacity: Double
     public var secondaryScale: CGFloat
 
@@ -40,7 +37,6 @@ public struct SeihaiCardTokens {
         self.secondaryScale = secondaryScale
     }
 
-    /// ロールごとのデフォルト（Themeから一元参照）
     public static func `default`(_ role: SeihaiCardRole) -> SeihaiCardTokens {
         switch role {
         case .primary:
@@ -54,7 +50,6 @@ public struct SeihaiCardTokens {
                 secondaryOpacity: SeihaiTheme.secondaryCardOpacity,
                 secondaryScale: 1.0
             )
-
         case .secondary:
             return .init(
                 cornerRadius: SeihaiTheme.cardCornerRadius,
@@ -71,18 +66,14 @@ public struct SeihaiCardTokens {
 }
 
 public extension View {
-    /// Seihaiの基本カードスタイル（Material + 微細ボーダー + 最小影）
     func seihaiCard(_ role: SeihaiCardRole) -> some View {
         modifier(SeihaiCardModifier(role: role, tokens: .default(role)))
     }
 
-    /// 必要時のみ微調整（v0.9ではなるべく使わない）
     func seihaiCard(_ role: SeihaiCardRole, tokens: SeihaiCardTokens) -> some View {
         modifier(SeihaiCardModifier(role: role, tokens: tokens))
     }
 }
-
-// MARK: - Implementation
 
 private struct SeihaiCardModifier: ViewModifier {
     let role: SeihaiCardRole
@@ -101,7 +92,7 @@ private struct SeihaiCardModifier: ViewModifier {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: tokens.cornerRadius, style: .continuous)
-                    .strokeBorder(Color.seihaiSeparator, lineWidth: tokens.borderWidth)
+                    .strokeBorder(Color(uiColor: .separator), lineWidth: tokens.borderWidth)
             }
             .shadow(radius: tokens.shadowRadius, x: 0, y: tokens.shadowY)
             .opacity(role == .secondary ? tokens.secondaryOpacity : 1.0)
@@ -110,22 +101,9 @@ private struct SeihaiCardModifier: ViewModifier {
     }
 }
 
-// MARK: - Helpers
-
-private extension Color {
-    /// UIKitのseparator相当。ライト/ダークで破綻しにくい。
-    static var seihaiSeparator: Color {
-        Color(uiColor: .separator)
-    }
-}
-
 private extension View {
     @ViewBuilder
     func ifLet<T, Content: View>(_ value: T?, transform: (Self, T) -> Content) -> some View {
-        if let value {
-            transform(self, value)
-        } else {
-            self
-        }
+        if let value { transform(self, value) } else { self }
     }
 }

@@ -26,7 +26,7 @@ struct ActionView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 12) {
-                            // 主役カード「次の一手」
+
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("次の一手")
                                     .font(.system(size: 15, weight: .semibold))
@@ -42,7 +42,6 @@ struct ActionView: View {
                             .seihaiCard(.primary)
                             .padding(.horizontal, 16)
 
-                            // 整理カード（控えめ）
                             if !vm.thoughts.isEmpty {
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text("整理")
@@ -63,14 +62,13 @@ struct ActionView: View {
                                 .padding(.horizontal, 16)
                             }
 
-                            // 共有ボタン（純正寄せ）
                             HStack {
                                 Spacer()
                                 Button {
                                     showShare = true
                                 } label: {
                                     Label("共有", systemImage: "square.and.arrow.up")
-                                        .padding(.vertical, 6) // 見た目は変えずタップ領域だけ確保
+                                        .padding(.vertical, 6)
                                         .padding(.horizontal, 8)
                                         .contentShape(Rectangle())
                                 }
@@ -90,15 +88,14 @@ struct ActionView: View {
             }
 
             if showSharedToast {
-                SimpleToast(message: "共有したにゃ")
+                SimpleToast(message: "共有できたにゃ")
                     .transition(.move(edge: .bottom).combined(with: .opacity))
-                // ↑ padding(.bottom, 12) は Toast 側（SeihaiToastContainer）に任せる
             }
         }
         .animation(.easeOut(duration: 0.18), value: showSharedToast)
         .sheet(isPresented: $showShare) {
             ShareSheet(activityItems: [shareMarkdown]) { completed in
-                guard completed else { return } // キャンセル時は何もしない
+                guard completed else { return }
 
                 Haptics.soft()
                 showSharedToast = true
@@ -111,8 +108,6 @@ struct ActionView: View {
         }
     }
 
-    // MARK: - Header
-
     private var header: some View {
         HStack {
             Text("行動")
@@ -120,8 +115,6 @@ struct ActionView: View {
             Spacer()
         }
     }
-
-    // MARK: - Share Markdown
 
     private func makeShareMarkdown(action: String, items: [Thought]) -> String {
         let a = action.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -148,8 +141,6 @@ struct ActionView: View {
 
         return out.joined(separator: "\n")
     }
-
-    // MARK: - Empty State
 
     private var emptyState: some View {
         VStack(spacing: 10) {
